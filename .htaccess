@@ -1,0 +1,42 @@
+### Rewrite for theme assets stored in /site/web/app/
+
+<IfModule mod_rewrite.c>
+   RewriteEngine On
+   RewriteRule ^_admin$ /site/web/wp/wp-admin [NC,L]
+</IfModule>
+
+
+
+<IfModule mod_rewrite.c>
+   RewriteEngine On
+   RewriteRule ^app(.*)$ /site/web/app/$1 [R=301,NC,L]
+</IfModule>
+
+### Rewrite for root of the web
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /site/web/
+    RewriteCond %{REQUEST_URI} ^/$
+    RewriteRule ^(/)?$ /site/web/ [L]
+</IfModule>
+
+### Rewrite for subpages
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /site/web/
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule . /site/web/index.php [L]
+</IfModule>
+
+# BEGIN WordPress
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /
+RewriteRule ^index\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.php [L]
+</IfModule>
+
+# END WordPress
